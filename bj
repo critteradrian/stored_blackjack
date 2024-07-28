@@ -1,8 +1,9 @@
-#ugh this code is actually so unorganized i need to redo it in the future (reminder to self)
+# this code is really unorganized i need to redo it in the future (reminder to self)
 
 import random
 from art import logo
 from replit import clear
+# code was originally written in replit; clear command clears up the visible history of the output console to improve ui
 cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
 
 def deal_card():
