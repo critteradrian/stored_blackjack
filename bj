@@ -1,0 +1,101 @@
+#ugh this code is actually so unorganized i need to redo it in the future (reminder to self)
+
+import random
+from art import logo
+from replit import clear
+cards = [11, 2, 3, 4, 5, 6, 7, 8, 9, 10, 10, 10, 10]
+
+def deal_card():
+  card = random.choice(cards)
+  return card
+  
+user_cards = []
+computer_cards = []
+
+user_cards.append(deal_card())
+user_cards.append(deal_card())
+
+computer_cards.append(deal_card())
+computer_cards.append(deal_card())
+
+def calculate_score(list):
+  score = sum(list)
+  if 11 in list and score > 21:
+    index = list.index(11)
+    list.remove(list[index])
+    list.append(1)
+    score = sum(list)
+  if score == 21:
+    return 0
+  else:
+    return score
+def blackjack():
+  game_stopped = False
+  user_score = calculate_score(user_cards)
+  computer_score = calculate_score(computer_cards)
+  
+  print(f"Your cards: {user_cards}, your score: {user_score}")
+  print(f"Computer's first card: {computer_cards[0]}")
+  
+  if user_score == 0 or computer_score == 0 or user_score > 21:
+    game_stopped = True
+  
+  if game_stopped == False:
+    choice2 = input("Type 'y' to draw another card, or 'n' if not: ").lower()
+    if choice2 == 'y':
+      user_cards.append(deal_card())
+      user_score = calculate_score(user_cards)
+      if user_score > 21:
+        game_stopped = True
+      else:
+        blackjack()
+    else:
+      while game_stopped == False:
+        if computer_score >= 17:
+          game_stopped = True
+        else:
+          computer_cards.append(deal_card())
+          computer_score = calculate_score(computer_cards)
+        
+  def compare():
+    if user_score == computer_score:
+      print("You and the computer have the same score! the game ends in a draw :)")
+    elif computer_score == 0:
+      print("You lose! The computer has Blackjack :(")
+    elif user_score == 0:
+      print("You win! You have Blackjack :D")
+    elif computer_score > 21:
+      print("You win! Computer has over 21, so that's bust :)")
+    elif user_score > 21:
+      print("You lose! You have over 21, so that's bust :(")
+    elif user_score > computer_score:
+      print("You win! You have a greater score than the computer's :)")
+    elif computer_score > user_score:
+      print("You lose! The computer has a greater score than you :(")
+
+  game_stopped = True
+  print(f"Your cards: {user_cards}, your final score: {user_score}")
+  print(f"Computer's final hand: {computer_cards}, final score: {computer_score}")
+  compare()
+  
+  choice = input("Do you want to play another game of Blackjack? Type 'y' for yes or 'n' for no: ").lower()
+  if choice == 'y':
+    clear()
+    print(logo)
+    user_cards.clear()
+    computer_cards.clear()
+    user_cards.append(deal_card())
+    user_cards.append(deal_card())
+    computer_cards.append(deal_card())
+    computer_cards.append(deal_card())
+    blackjack()
+  else:
+    clear()
+    print(logo)
+    print("Thanks for playing :D")
+    
+choice = input("Do you want to play a game of Blackjack? Type 'y' for yes or 'n' for no: ").lower()
+if choice == 'y':
+  clear()
+  print(logo)
+  blackjack()
